@@ -8,12 +8,25 @@
     <title>Document</title>
   </head>
   <body>
-    <form action="/" method="POST">
-      <div>
-        <label for="name">nom de l'étudiant :</label>
-        <input type="text" name="name" />
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <form action="/" method="POST">
+            <div>
+              <label for="name">nom de l'étudiant :</label>
+              <input class="form-control" type="text" name="name" />
+            </div>
+            <div><label for="birth">date d'anniversaire :</label>
+                <input type="text" name="birth"></div>
+            <button class="btn btn-primary" type="submit">Ajouter</button>
+          </form>
+        </div>
+        <div class="col-6">
+          <p class="text-primary">
+            <a type="submit" class="btn" href="/students">Tous les étudiants</a>
+          </p>
+        </div>
       </div>
-      <button class="btn btn-primary" type="submit">Ajouter</button>
-    </form>
+    </div>
   </body>
 </html>

@@ -2,7 +2,7 @@ const http = require("http");
 const fs = require("fs");
 const hostname = "127.0.0.1";
 const port = 8080;
-const {students} = require("./Data/students")
+const { students } = require("./Data/students");
 // tableau d'étudiant
 /*
 const students = [
@@ -29,7 +29,45 @@ const server = (req, res) => {
     res.end();
     return;
   }
+  if (url === "" && req.method === "GET") {
+    const home = fs.readFileSync("./views/home.html", "utf-8");
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.write(home);
+    res.end();
+    return;
+  }
 
+  if (url === "" && req.method === "POST") {
+    let body = "";
+    req.on("data", (data) => {
+      // On peut caster les data qui arrivent en binaire en toString pour les traiter dans l'application sous forme d'une chaine de caractères
+      //console.log(data.toString())
+      body += data;
+    });
+
+    req.on("end", () => {
+      const replacer = new RegExp(/\+/, "g");
+      const sanitize = body
+        .toString()
+        .trim()
+        .replace(replacer, " ")
+        .split("&")
+        .map((data) => {
+          // on assigne par décomposition en splittant avec =
+          const [key, value] = data.split("=");
+
+          // on retourne un littéral constitué d'une clé, attention pensez à mettre des crochets pour que JS interprété la clé comme une valeur
+          return { [key]: value.trim() };
+        });
+
+      students.push({ ...sanitize[0], ...sanitize[1] });
+      res.writeHead(302, {
+        Location: `http://${hostname}:${port}`,
+      });
+      res.end();
+      return;
+    });
+  }
   if (url === "students") {
     //const students = fs.readFileSync("../Data/students.js", "utf-8");
     let html = "<ul>";
@@ -55,19 +93,6 @@ const server = (req, res) => {
     </body>`);
     res.end();
     return;
-  }
-
-  if (url === "home") {
-    const home = fs.readFileSync("./views/home.html", "utf-8");
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.write(home);
-    res.end();
-    return;
-  }
-
-
-  if(url === "" && req.method === 'POST'){
-    
   }
 };
 
