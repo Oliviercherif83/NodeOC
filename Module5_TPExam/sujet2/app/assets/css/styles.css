@@ -1,0 +1,13 @@
+.content{
+    width: 500px;
+    margin:auto;
+}
+
+.flex{
+    display:flex;
+    flex-direction:row;
+}
+
+.justify-content{
+    justify-content:space-between;
+}

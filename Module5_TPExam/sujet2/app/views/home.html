@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles" type="text/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="content">
+      <form action="/" method="POST">
+        <div class="flex justify-content">
+          <div>
+            <label for="number1">Number 1 :</label>
+            <input type="number" name="number1" />
+          </div>
+          <div>
+            <label for="number2">Number 2 :</label>
+            <input type="number" name="number2" />
+          </div>
+        </div>
+        <div class="flex justify-content">
+          <div>
+            <label for="less"
+              >-<input type="radio" id="less" name="operator" value="less"
+            /></label>
+          </div>
+          <div>
+            <label for="plus"
+              >+<input type="radio" id="plus" name="operator" value="plus"
+            /></label>
+          </div>
+          <div>
+            <label for="multiply"
+              >*<input
+                type="radio"
+                id="multiply"
+                name="operator"
+                value="multiply"
+            /></label>
+          </div>
+          <button type="submit" href="/">Calculer</button>
+          <!--<button type="reset">Reset</button>-->
+        </div>
+      </form>
+      <div class="result">
+        <p>Result</p>
+        <!--results[results.length-1] : selectionne le dernier élement du tableau-->
+        <p><%= results[results.length-1]?.result %></p>
+      </div>
+      <div>
+        <p>
+          <a type="submit" href="/memory">liste des résultats</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
