@@ -4,8 +4,8 @@ const ejs = require("ejs");
 require("dotenv").config();
 const { APP_LOCALHOST: hostname, APP_PORT: port } = process.env;
 const {
-  utils: { addition, soustraction, multiplication },
-} = require("./src/utils/calculate");
+  utils: { conditionnal },
+} = require("./src/utils/utils");
 const { results } = require("./Data/results");
 
 exports.server = (req, res) => {
@@ -51,45 +51,8 @@ exports.server = (req, res) => {
           const [key, value] = data.split("=");
           return { [key]: value.trim() };
         });
-      const { operator } = sanitize[2];
-      if (operator === "plus") {
-        const result = addition(
-          parseInt(sanitize[0].number1),
-          parseInt(sanitize[1].number2)
-        );
-        results.push({
-          ...sanitize[0],
-          ...sanitize[1],
-          ...sanitize[2],
-          ...(sanitize[3] = { result: result }),
-        });
-      }
-
-      if (operator === "less") {
-        const result = soustraction(
-          parseInt(sanitize[0].number1),
-          parseInt(sanitize[1].number2)
-        );
-        results.push({
-          ...sanitize[0],
-          ...sanitize[1],
-          ...sanitize[2],
-          ...(sanitize[3] = { result: result }),
-        });
-      }
-
-      if (operator === "multiply") {
-        const result = multiplication(
-          parseInt(sanitize[0].number1),
-          parseInt(sanitize[1].number2)
-        );
-        results.push({
-          ...sanitize[0],
-          ...sanitize[1],
-          ...sanitize[2],
-          ...(sanitize[3] = { result: result }),
-        });
-      }
+      
+        conditionnal(sanitize, results);
 
       console.log(results);
       // 302 redirection non permanente pour retourner la page d'accueil
